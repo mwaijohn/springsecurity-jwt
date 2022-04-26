@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -29,9 +30,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class UserServiceImpl implements UserService,UserDetailsService{
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
+    
     @Override
     public User saveUser(User user) {
         log.info("Adding user {} to the database",user.getName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
 

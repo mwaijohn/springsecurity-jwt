@@ -19,7 +19,7 @@ public class SpringjwtApplication {
 	}
         
         @Bean
-        PasswordEncoder passwordEncoder(){
+        BCryptPasswordEncoder passwordEncoder(){
             return new BCryptPasswordEncoder();
         }
         @Bean
